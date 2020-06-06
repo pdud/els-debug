@@ -1,0 +1,70 @@
+<h2>Hello</h2>
+<form {{on "submit" this.search}}>
+  <div class="font-bold text-white section section--primary">
+    <div class="container px-4 mx-auto">
+      <div class="flex mb-4">
+        <BasicDropdown as |dd|>
+          <dd.trigger @class="dropdown-trigger" data-test-type={{this.type}}>Dropdown 1</dd.trigger>
+          <dd.content @class="dropdown dropdown--menu">
+            <ul>
+              <li>
+                <button
+                  type="button"
+                  {{on "click" (fn this.setType "one" dd.actions.toggle)}}
+                >
+                  One
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  {{on "click" (fn this.setType "two" dd.actions.toggle)}}
+                >
+                  Two
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  {{on "click" (fn this.setType "three" dd.actions.toggle)}}
+                >
+                  Three
+                </button>
+              </li>
+            </ul>
+          </dd.content>
+        </BasicDropdown>
+
+        <CustomDropdown @puppy={{this.firstPuppy}} @onChange={{this.reset}}  />
+      </div>
+      {{#if this.isTypeTwo}}
+        <OtherPuppyFieldset
+          @puppies={{this.model.puppies}}
+          @model={{this.model}}
+          @addPuppy={{this.addPuppy}}
+          @resetSearch={{this.reset}}
+          @search={{this.search}}
+          @setDog={{this.setDog}}
+          @setPuppy={{this.setPuppy}}
+          @showSearch={{this.showSearchButton}}
+        />
+      {{else}}
+        <PuppyFieldset
+          @puppy={{this.firstpuppy}}
+          @isFamily={{this.isFamily}}
+          @resetSearch={{this.reset}}
+          @addPuppy={{this.addPuppy}}
+          @setPuppy={{this.setPuppy}}
+          @showNewDogForm={{fn this.showNewDogForm this.firstpuppy}}
+          @showNewPuppyForm={{fn this.showNewPuppyForm this.firstpuppy}}
+          @showSearch={{this.showSearchButton}}
+          @birthdate={{this.birthdate}}
+          @search={{this.search}}
+        />
+      {{/if}}
+    </div>
+  </div>
+</form>
+
+
+{{outlet}}
